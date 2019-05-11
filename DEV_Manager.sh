@@ -5,23 +5,32 @@
 #As well as the donation address for the “Buy the poor guy a red bull”
 #LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H
 #This script work is still in active deployment so please keep an eye April 2019
-declare -i NC NZL NZLC NZLOld NZLMN0 NZLMN1 NZLMN2 NZLMN3 NZLMN4 NZLMN5 NZLMN6 NZLMN7 NZLMN8
+declare -i NC DEV DEVC DEVOld DEVMN0 DEVMN1 DEVMN2 DEVMN3 DEVMN4 DEVMN5 DEVMN6 DEVMN7 DEVMN8
 #Counter
 NC=0
 #Coin MN found 0 false 1 true
-NZL=0
+DEV=0
 #Masternode Counter
-NZLC=0
+DEVC=0
 #Coinname Lowercase
-COINl=zealium
+COINl=deviant
 #Coin ticket symbol
-COIN3=NZL
-COIN3l=nzl
-COINDAEMON=zealiumd
-COINDAEMONCLI=zealium-cli
-COINCORE=.zealium
-COINCONFIG=zealium.conf
-COINHOME=/home/zealium
+COIN3=DEV
+COIN3l=dev
+COINDAEMON=deviantd
+COINDAEMONCLI=deviant-cli
+COINCORE=.deviant
+COINCONFIG=deviant.conf
+COINHOME=/home/deviant
+NEBootStrap=http://nullentry.com/chain/DEV/bootstrap.rar
+ADDNODE0=66.206.10.47:22618
+ADDNODE1=159.89.30.63:22618
+ADDNODE2=45.32.150.157:22618
+ADDNODE3=185.92.221.156:22618
+ADDNODE4=35.187.229.31:22618
+ADDNODE5=94.177.254.36:22618
+COINPORT=22618
+COINRPCPORT=12345
 #path to NullEntryDev stuff
 DPATH=/usr/local/nullentrydev/
 #IPCHECK
@@ -36,6 +45,9 @@ CLEAR='\033[0m'
 pause(){
   read -p "Press [Enter] key to continue..." fackEnterKey
 }
+#test_pause(){
+#  read -p "Testing Pause - Report if you see this - Press [Enter] key to continue..." fackEnterKey
+#}
 #Null Entry logo
 null_logo(){
 echo
@@ -67,8 +79,8 @@ echo "                                                                          
 #ASCII art generated from patorjk.com
 pause
 }
-#GenesisX logo
-Zealium_Logo(){
+#Deviant_Logo
+Deviant_Logo(){
   clear
   echo "                                                                      ";
   echo "                                                                      ";
@@ -124,6 +136,44 @@ BitCoinGenX_Logo(){
   echo
   pause
 }
+### Start - First Run Configuration
+function_check_first_run(){
+  local NULLREC
+  if grep -Fxq "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
+    then
+      echo "Not First Run - Testing Check Point"
+      else
+  clear
+  echo
+  echo
+  echo
+  echo
+  echo
+  echo -e ${YELLOW}"Welcome to the Beta Masternode Manager Script by ${BLUE}NullEntry"${CLEAR}
+  echo -e ${RED}'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND'${CLEAR}
+  echo
+  echo -e ${BLUE}"May this script will store a small amount data in /usr/local/nullentrydev/ ?"${CLEAR}
+  echo -e ${BLUE}"This information is for version updates, masternode installation, file repair"${CLEAR}
+  echo -e ${BLUE}"and later implimentation. Zero information is transmitted off the VPS or collected"${CLEAR}
+  echo -e ${BLUE}"for any advertising or information harvesting."${CLEAR}
+  echo
+  echo -e ${BLUE}"Upon agrement it will start to automatically install the Libraries and code"${CLEAR}
+  echo -e ${BLUE}"needed for most masternodes and this script. As well as Update and Upgrade"${CLEAR}
+  echo -e ${BLUE}"existing software on your VPS. Additional dependencies May be installed later"${CLEAR}
+  echo
+  echo
+  echo -e ${YELLOW}"Press [Y]es to agree or [N]o to disagree; follow by [ENTER Key]"${CLEAR}
+  read  -p "Enter choice : " NULLREC
+  case $NULLREC in
+    y) function_first_run ;;
+    Y) function_first_run ;;
+    n) exit 0 ;;
+    N) exit 0 ;;
+    *) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2 && function_check_first_run
+  esac
+fi
+}
+### End - First Run Configuration
 #Main menu
 show_mainMenu() {
 	clear
@@ -134,7 +184,7 @@ show_mainMenu() {
   echo -e "2 - Install or Add Masternodes"
   echo -e "3 - Masternode Manager"
   echo -e "4 - Donate"
-#  echo -e "5 - Maintenance"
+  echo -e "5 - Maintenance"
   echo -e "X - Exit"
   read_MainMenuOptions
 }
@@ -145,7 +195,7 @@ read_MainMenuOptions(){
 	case $choice in
 		1) find_Masternodes ;;
 		2) function_masternode_upgrade ;;
-    3) manager_NZLMasternodes;;
+    3) manager_HSTCMasternodes;;
     4) function_Donations ;;
     5) manager_maintenance ;;
     x) exit 0;;
@@ -186,8 +236,8 @@ edit_masternode(){
   nano ${COINHOME}${nodeunit}/${COINCORE}/${COINCONFIG}
   echo -e ${CLEAR}
 }
-# manager_NZLMasternodes menu
-manager_NZLMasternodes(){
+# manager_HSTCMasternodes menu
+manager_HSTCMasternodes(){
   clear
   echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 	echo " Displaying Masternode Status"
@@ -198,10 +248,10 @@ manager_NZLMasternodes(){
   echo -e "4 - Stop Masternode(s)"
   echo -e "5 - Re-Index Masternode(s)"
 	echo -e "X - Exit"
-  read_manager_NZLMasternodes
+  read_manager_HSTCMasternodes
 }
-# manager_NZLMasternodes read options
-read_manager_NZLMasternodes(){
+# manager_HSTCMasternodes read options
+read_manager_HSTCMasternodes(){
 	local choice
 	read -p "Enter choice " choice
 	case $choice in
@@ -210,7 +260,10 @@ read_manager_NZLMasternodes(){
     3) manager_Start_Masternodes ;;
     4) manager_stop_Masternodes ;;
     5) function_menu_Reindex_Masternodes ;;
+    b) echo ;;
+    B) echo ;;
     x) exit 0;;
+    X) exit 0;;
 		*) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2
 	esac
 }
@@ -255,31 +308,31 @@ manager_Start_Masternodes(){
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "1 - Masternode One"
+  echo -e "01 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "2 - Masternode Two"
+  echo -e "02 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "3 - Masternode Three"
+  echo -e "03 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "4 - Masternode Four"
+  echo -e "04 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "5 - Masternode Five"
+  echo -e "05 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "6 - Masternode Six"
+  echo -e "06 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "7 - Masternode Seven"
+  echo -e "07 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "8 - Masternode Eight"
+  echo -e "08 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "9 - Masternode Nine"
+  echo -e "09 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -328,8 +381,6 @@ read_Start_Masternodes(){
   esac
 }
 #End - read Start Masternodes Menu
-
-
 #start function_menu_Reindex_Masternodes
 function_menu_Reindex_Masternodes(){
   clear
@@ -340,31 +391,31 @@ function_menu_Reindex_Masternodes(){
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "1 - Masternode One"
+  echo -e "01 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "2 - Masternode Two"
+  echo -e "02 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "3 - Masternode Three"
+  echo -e "03 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "4 - Masternode Four"
+  echo -e "04 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "5 - Masternode Five"
+  echo -e "05 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "6 - Masternode Six"
+  echo -e "06 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "7 - Masternode Seven"
+  echo -e "07 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "8 - Masternode Eight"
+  echo -e "08 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "9 - Masternode Nine"
+  echo -e "09 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -450,31 +501,31 @@ Edit_MN_Status(){
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "1 - Masternode One"
+  echo -e "01 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "2 - Masternode Two"
+  echo -e "02 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "3 - Masternode Three"
+  echo -e "03 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "4 - Masternode Four"
+  echo -e "04 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "5 - Masternode Five"
+  echo -e "05 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "6 - Masternode Six"
+  echo -e "06 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "7 - Masternode Seven"
+  echo -e "07 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "8 - Masternode Eight"
+  echo -e "08 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "9 - Masternode Nine"
+  echo -e "09 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -493,31 +544,31 @@ manager_stop_Masternodes(){
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "1 - Masternode One"
+  echo -e "01 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "2 - Masternode Two"
+  echo -e "02 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "3 - Masternode Three"
+  echo -e "03 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "4 - Masternode Four"
+  echo -e "04 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "5 - Masternode Five"
+  echo -e "05 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "6 - Masternode Six"
+  echo -e "06 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "7 - Masternode Seven"
+  echo -e "07 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "8 - Masternode Eight"
+  echo -e "08 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "9 - Masternode Nine"
+  echo -e "09 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -634,31 +685,31 @@ display_MN_Status(){
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "1 - Masternode One"
+  echo -e "01 - (Not This one, you have legacy) (1.0 and new install)"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "2 - Masternode Two"
+  echo -e "02 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "3 - Masternode Three"
+  echo -e "03 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "4 - Masternode Four"
+  echo -e "04 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "5 - Masternode Five"
+  echo -e "05 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "6 - Masternode Six"
+  echo -e "06 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "7 - Masternode Seven"
+  echo -e "07 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "8 - Masternode Eight"
+  echo -e "08 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "9 - Masternode Nine"
+  echo -e "09 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -774,20 +825,20 @@ function_find_Masternodes(){
 local choice
   if [ -d /home/${COINl}${nodeunit} ]; then
     if [ -z ${nodeunit} ]; then
-    echo -e ${GREEN}"Found NZL-Oldnode Installation Found - /home/${COINl}" ${CLEAR}
+    echo -e ${GREEN}"Found HSTC-Oldnode Installation Found - /home/${COINl}" ${CLEAR}
   else
-    echo -e ${GREEN}"Found NZL-${nodeunit} Installation Found - /home/${COINl}${nodeunit}" ${CLEAR}
+    echo -e ${GREEN}"Found HSTC-${nodeunit} Installation Found - /home/${COINl}${nodeunit}" ${CLEAR}
   fi
-  ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}NZLMN${nodeunit}.tmp
-    if grep -q "Hot node, waiting for remote activation" ${DPATH}NZLMN${nodeunit}.tmp; then
+  ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}HSTCMN${nodeunit}.tmp
+    if grep -q "Hot node, waiting for remote activation" ${DPATH}HSTCMN${nodeunit}.tmp; then
       echo -e ${YELLOW} "Masternode Ready, waiting for activation from Wallet" ${CLEAR}
-    elif grep -q "Loading block index..." ${DPATH}NZLMN${nodeunit}.tmp; then
+    elif grep -q "Loading block index..." ${DPATH}HSTCMN${nodeunit}.tmp; then
     echo -e ${YELLOW} "Masternode is still loading block Index, please wait." ${CLEAR}
-    elif grep -q "Masternode successfully started" ${DPATH}NZLMN${nodeunit}.tmp; then
+    elif grep -q "Masternode successfully started" ${DPATH}HSTCMN${nodeunit}.tmp; then
       echo -e ${GREEN} "Masternode Successfully Started" ${CLEAR}
-    elif grep -q "Masternode not found in the list of available masternodes. Current status: Node just started, not yet activated" ${DPATH}NZLMN${nodeunit}.tmp; then
+    elif grep -q "Masternode not found in the list of available masternodes. Current status: Node just started, not yet activated" ${DPATH}HSTCMN${nodeunit}.tmp; then
       echo -e ${YELLOW} "Masternode is loading blocks, Please Wait " ${CLEAR}
-    elif grep -q "error: couldn't connect to server" ${DPATH}NZLMN${nodeunit}.tmp; then
+    elif grep -q "error: couldn't connect to server" ${DPATH}HSTCMN${nodeunit}.tmp; then
       echo -e ${RED} "Masternode not running, Please Start"
       echo
       echo -e ${GREEN} "Would you like to attempt to start the Masternode? (Y/N) "
@@ -800,18 +851,18 @@ local choice
         *) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2
       esac
     fi
-      ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}NZLMN${nodeunit}.tmp
-      DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/NZLMN${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1)
+      ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}HSTCMN${nodeunit}.tmp
+      DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/HSTCMN${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1)
         if [[ "$DISPIP" =~ (([01]{,1}[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]{,1}[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]{,1}[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]{,1}[0-9]{1,2}|2[0-4][0-9]|25[0-5]))$ ]]; then
           echo -e "Running on IPv4 :${YELLOW} ${DISPIP}" ${CLEAR}
         else
-        DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/NZLMN${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1-8)
+        DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/HSTCMN${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1-8)
           echo -e "Running on IPv6 : ${YELLOW} ${DISPIP}" ${CLEAR}
         fi
-        rm -r /usr/local/nullentrydev/NZLMN${nodeunit}.tmp
+        rm -r /usr/local/nullentrydev/HSTCMN${nodeunit}.tmp
 #        echo "Running on IP : ${DISPIP}"
-NZLOld="1"
-NZL=$NZL+1
+HSTCOld="1"
+HSTC=$HSTC+1
 #else
 #  if [ ! -z ${nodeunit} ]; then
 # echo -e ${RED}"No Installation Found for Masternode ${nodeunit} - /home/${COINl}${nodeunit}" ${CLEAR}
@@ -822,43 +873,44 @@ echo
 #start function_update
 function_update() {
     echo -e ${RED}"Updating Apps"${CLEAR}
-    #sudo apt-get -y update
-    #sudo apt-get -y upgrade
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
 }
 # Operating Systems Check
-first_run(){
+function_first_run(){
         if [[ $(lsb_release -d) != *16.04* ]]; then
           echo -e ${RED}"The operating system is not Ubuntu 16.04. You must be running on ubuntu 16.04."${CLEAR}
           exit 1
         fi
-  #Null Entry Logs configuration file check
+#Null Entry Logs configuration file check
         if [ ! -d /usr/local/nullentrydev/ ]; then
           echo "Making /usr/local/nullentrydev "
           sudo mkdir /usr/local/nullentrydev
-        else
+          else
           echo "Found /usr/local/nullentrydev "
         fi
         if [ ! -f /usr/local/nullentrydev/${COIN3l}.log ]; then
           echo "Making /usr/local/nullentrydev/${COIN3l}.log"
           sudo touch /usr/local/nullentrydev/${COIN3l}.log
-        else
-          echo "Found /usr/local/nullentrydev/${COIN3l}.log"
+          else
+            echo "Found /usr/local/nullentrydev/${COIN3l}.log"
         fi
         if [ ! -f /usr/local/nullentrydev/mnodes.log ]; then
           echo "Making /usr/local/nullentrydev/mnodes.log"
           sudo touch /usr/local/nullentrydev/mnodes.log
-        else
+          else
           echo "Found /usr/local/nullentrydev/mnodes.log"
         fi
-        echo "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
-function_update
+        function_first_nodecheck
+      }
 # Checking to see if Dependencies & Software Libraries have been installed
-if grep -Fxq "dependenciesInstalled: true" /usr/local/nullentrydev/mnodes.log
-then
+function_dependencies(){
+  if [ -f /usr/local/nullentrydev/mnodes.log ] && grep -Fxq "dependenciesInstalled: true" /usr/local/nullentrydev/mnodes.log
+      then
   echo
   echo -e ${RED}"Skipping... Dependencies & Software Libraries - Previously installed"${CLEAR}
   echo
-else
+      else
   echo ${RED}"Installing Dependencies & Software Libraries"${CLEAR}
   sudo apt-get -y install software-properties-common
   sudo apt-get -y install build-essential
@@ -880,7 +932,38 @@ else
     if [[ $NULLREC = "y" ]] ; then
       sudo echo "dependenciesInstalled: true" >> /usr/local/nullentrydev/mnodes.log
     fi
-  fi
+    fi
+  echo "firstrun_complete: true" >> /usr/local/nullentrydev/mnodes.log
+}
+#Firstnode Installation Check
+function_first_nodecheck(){
+        if [ -d /home/${COINl} ]; then
+          echo -e ${GREEN}"Found ${COINl}-Oldnode Installation Found - /home/${COINl}" ${CLEAR}
+        else
+          if [ -d /home/${COINl}1 ]; then
+          echo -e ${GREEN}"Found ${COINl} Masternode Installation Found - /home/${COINl}" ${CLEAR}
+        else
+        #install FirstMasternode - Start!
+        nodeunit=1
+        clear
+        echo
+        echo
+        echo
+        echo -e "${RED}Let's set up your first ${COINl} masternode before we continue..."
+        echo -e "${GREEN}This is going to take a few minutes, and when done will display"
+        echo -e "${GREEN}information you need for your masternode.conf on your local wallet"
+        echo
+        echo -e "Please Enter your first Masternode Private Key"
+        #echo -e ${GREEN}"Do you have Masternode Private Keys you want to use; or would you"${CLEAR}
+        #echo -e ${GREEN}"like this script to generate them for you?"${CLEAR}
+        read MNKEY1
+        function_install
+        #add Regex or "are you sure"
+        fi
+      fi
+      }
+function_swap_space(){
+echo grr
 }
 #### end apps/update  install functions?
 #>>>>>>>>>><<<<<<<<<<<<<<  make function for IP tables
@@ -911,36 +994,97 @@ fi
 cd /root/${COIN3l}
 #Download Wallet Files
 echo "Downloading latest ${COIN} binaries"
-#wget  https://github.com/zealium/Bitcoinzealium/files/2853315/zealium-linux.zip
-#unzip genesisx-linux.zip
+wget https://github.com/Deviantcoin/Wallet/raw/master/deviant-4.0.0-x86_64-linux-gnu.tar.gz
+tar xvzf deviant-4.0.0-x86_64-linux-gnu.tar.gz
 sleep 3
-sudo mv /root/${COIN3l}/${COINDAEMON} /root/${COIN3l}/${COINDAEMONCLI} /usr/local/bin
+sudo mv /root/${COIN3l}/deviant-4.0.0/bin/${COINDAEMON} /root/${COIN3l}/deviant-4.0.0/bin/${COINDAEMONCLI} /usr/local/bin
 sudo chmod 755 -R  /usr/local/bin/${COINl}*
-rm -rf /root/${COIN3l}
+#rm -rf /root/${COIN3l}
 }
 ##Make Node configuration file
-build_first_node(){
-  echo -e "${GREEN}Configuring First ${COIN} Node${CLEAR}"
-  sudo mkdir /home/${COINl}1/.${COINl}
-  sudo touch /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "rpcallowip=127.0.0.1" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "server=1" >> /home/${COINl}/.${COINl}1/${COINCONFIG}
-  echo "daemon=1" >> /home/${COINl}/.${COINl}1/${COINCONFIG}
-  echo "maxconnections=250" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "masternode=1" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "rpcport=${COINRPCPORT1}" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "listen=0" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "externalip=[${MNIP1}]:$COINPORT" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "masternodeprivkey=$privkey" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=85.214.50.43:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=45.32.128.115:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=144.202.124.138:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=108.61.224.80:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=118.38.99.125:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=178.62.68.177:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
-  echo "addnode=136.61.3.89:4488" >> /home/${COINl}1/.${COINl}/${COINCONFIG}
+function_build_node_configuration(){
+  echo -e "${GREEN}Configuring ${COIN} Masternode #${nodeunit} ${CLEAR}"
+  if [ ! -d /home/${COINl}${nodeunit} ]; then
+      sudo mkdir /home/${COINl}${nodeunit}
+      #test_pause
+      echo test mkdir /home/${COINl}${nodeunit}
+  fi
+  if [ ! -d /home/${COINl}${nodeunit}/.${COINl} ]; then
+      sudo mkdir /home/${COINl}${nodeunit}/.${COINl}
+      #test_pause
+      echo test mkdir /home/${COINl}${nodeunit}/.${COINl}
+  fi
+  sudo touch /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "rpcallowip=127.0.0.1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "server=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "daemon=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "maxconnections=256" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "masternode=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo ""
+##need to build master statement for coinport
+  RPCPORT=$(($COINRPCPORT+$nodeunit-1))
+  echo "rpcport=${RPCPORT}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  if [[ $nodeunit -eq 1 ]] ; then
+  echo "listen=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "datacarrier=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  else
+  echo "listen=0" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  fi
+  if [[ $nodeunit -eq 1 ]] ; then
+    echo "externalip=${MNIP1}:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 2 ]] ; then
+      echo "externalip=[${MNIP2}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 3 ]] ; then
+      echo "externalip=[${MNIP3}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 4 ]] ; then
+      echo "externalip=[${MNIP4}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 5 ]] ; then
+      echo "externalip=[${MNIP5}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 6 ]] ; then
+      echo "externalip=[${MNIP6}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 7 ]] ; then
+      echo "externalip=[${MNIP7}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 8 ]] ; then
+      echo "externalip=[${MNIP8}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 9 ]] ; then
+      echo "externalip=[${MNIP9}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+    elif [[ $nodeunit -eq 10 ]] ; then
+      echo "externalip=[${MNIP10}]:$COINPORT" >> /home/${COINl}0/.${COINl}/${COINCONFIG}
+  fi
+  if [[ $nodeunit -eq 1 ]] ; then
+  echo "masternodeprivkey=$MNKEY1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 2 ]] ; then
+  echo "masternodeprivkey=$MNKEY2" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 3 ]] ; then
+  echo "masternodeprivkey=$MNKEY3" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 4 ]] ; then
+  echo "masternodeprivkey=$MNKEY4" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 5 ]] ; then
+  echo "masternodeprivkey=$MNKEY5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 6 ]] ; then
+  echo "masternodeprivkey=$MNKEY6" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 7 ]] ; then
+  echo "masternodeprivkey=$MNKEY7" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 8 ]] ; then
+  echo "masternodeprivkey=$MNKEY8" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 9 ]] ; then
+  echo "masternodeprivkey=$MNKEY9" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+elif [[ $nodeunit -eq 10 ]] ; then
+  echo "masternodeprivkey=$MNKEY10" >> /home/${COINl}0/.${COINl}/${COINCONFIG}
+fi
+  ###Add Nodes Updates if 1st node skip, otherwise add 1st node as add node
+  if [[ $nodeunit -eq 1 ]] ; then
+  echo "addnode=$ADDNODE0" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "addnode=$ADDNODE1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "addnode=$ADDNODE2" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "addnode=$ADDNODE3" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "addnode=$ADDNODE4" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  echo "addnode=$ADDNODE5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  else
+  echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  fi
 }
 ## End Make Node Configuration Files
 ## Start Launch First node
@@ -955,6 +1099,7 @@ launch_first_node(){
     echo "masterNode1 : true" >> /usr/local/nullentrydev/${COIN3l}.log
     echo "walletVersion1 : $COINVERSION" >> /usr/local/nullentrydev/${COIN3l}.log
     echo "scriptVersion1 : $SCRIPTVERSION" >> /usr/local/nullentrydev/${COIN3l}.log
+    #test_pause
 }
 ##End Launch first node
 ##Start Waiting for Launch of First Nodes
@@ -966,13 +1111,16 @@ echo -e "${YELLOW}Once complete, it will stop and copy the block chain to${CLEAR
 echo -e "${YELLOW}the other masternodes.  This prevent all masternodes${CLEAR}"
 echo -e "${YELLOW}from downloading the block chain individually; taking up${CLEAR}"
 echo -e "${YELLOW}more time and resources.  Current Block count will be displayed below.${CLEAR}"
-zealium-cli -datadir=/home/zealium/.zealium getblockcount
+${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} getblockcount
 sleep 5
 #node 1 sync check
-until zealium-cli -datadir=/home/zealium/.zealium mnsync status | grep -m 1 'IsBlockchainSynced" : true'; do
-    zealium-cli -datadir=/home/zealium/.zealium getblockcount
+#select proper isblocked sync'd syntax
+#until ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} mnsync status | grep -m 1 'IsBlockchainSynced" : true'; do
+until ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} mnsync status | grep -m 1 'IsBlockchainSynced": true'; do
+    ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} getblockcount
     sleep 5
   done
+  #test_pause
 }
 ##End launch of first nodes
 ##Start of replicate nodes
@@ -981,7 +1129,7 @@ replicate_node(){
   echo
   sleep 5
   cd /
-  zealium-cli -datadir=/home/zealium/.zealium stop
+  ${COINDAEMONCLI} -datadir=/home/${COINl}/${COINCORE} stop
   sleep 10
   sudo cp -r /home/${COINl}/.${COINl}/* /home/${COINl}2/.${COINl}/
   sudo rm /home/${COINl}2/.${COINl}/${COINCONFIG}
@@ -989,45 +1137,9 @@ replicate_node(){
   sleep 5
 start_All_Nodes
 }
-##Configure other nodes
-configure_nonleadNodes(){
-  echo
-echo -e "${GREEN}Configuring Second ${COIN} Node${CLEAR}"
-sudo mkdir /home/${COINl}2/.${COINl}
-sudo touch /home/${COINl}2/${COINCONFIG}
-echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}2/${COINCONFIG}
-echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}2/${COINCONFIG}
-echo "rpcallowip=127.0.0.1" >> /home/${COINl}2/${COINCONFIG}
-echo "server=1" >> /home/${COINl}2/${COINCONFIG}
-echo "daemon=1" >> /home/${COINl}2/${COINCONFIG}
-echo "maxconnections=250" >> /home/${COINl}2/${COINCONFIG}
-echo "masternode=1" >> /home/${COINl}2/${COINCONFIG}
-echo "rpcport=${COINRPCPORT2}" >> /home/${COINl}2/${COINCONFIG}
-echo "listen=0" >> /home/${COINl}2/${COINCONFIG}
-echo "externalip=[${MNIP2}]:$COINPORT" >> /home/${COINl}2/${COINCONFIG}
-echo "masternodeprivkey=$privkey2" >> /home/${COINl}2/${COINCONFIG}
-# Inserting Version to nullentrydev files
-if [[ $NULLREC = "y" ]] ; then
-  echo "masterNode2 : true" >> /usr/local/nullentrydev/${COIN3l}.log
-  echo "walletVersion2 : $COINVERSION" >> /usr/local/nullentrydev/${COIN3l}.log
-  echo "scriptVersion2 : $SCRIPTVERSION" >> /usr/local/nullentrydev/${COIN3l}.log
-fi
-sleep 3
-echo
-# Starting Second Masternode daemon
-echo -e ${BOLD}"Second ${COIN3} Node Staged for launch"${CLEAR}
-}
-donate_address(){
-echo -e ${BLUE}" Your patronage is apprappreciated, tipping addresses"${CLEAR}
-echo -e ${BLUE}" NZL address: sJYJC97GmeFeNffx7fgJiReZQe6WzY2b3i"${CLEAR}
-echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
-echo -e ${BLUE}" BTC address: 32FzghE1yUZRdDmCkj3bJ6vJyXxUVPKY93"${CLEAR}
-echo
-echo -e ${YELLOW}"Need help?  Find Sburns1369#1584 one Discord - https://discord.gg/YhJ8v3g"${CLEAR}
-}
 ### Start - Masternode function_calculate_Masternode_Install
 function_new_masternode_install_menu(){
-  echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 8]"${CLEAR}
+  echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 4]"${CLEAR}
   echo -e "Press [C] to exit"
   read -p "Enter Number : " Install_Count
   case $Install_Count in
@@ -1045,51 +1157,22 @@ function_install_math() {
   #Figure out where to start installation from
   #limit installation to 10
 }
-### Start - First Run Configuration
-function_check_first_run(){
-  local NULLREC
-  if grep -Fxq "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
-    then
-      echo "Not First Run - Testing Check Point"
-    else
-  echo
-  echo -e ${YELLOW}"Welcome to the Beta Masternode Manager Script by ${BLUE}NullEntry"${CLEAR}
-  echo -e ${RED}'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND'${CLEAR}
-  echo
-  echo -e ${BLUE}"May this script will store a small amount data in /usr/local/nullentrydev/ ?"${CLEAR}
-  echo -e ${BLUE}"This information is for version updates and later implimentation"${CLEAR}
-  echo -e ${BLUE}"Zero Confidental information or Wallet keys will be stored in it"${CLEAR}
-  echo
-  echo -e ${BLUE}"Upon agrement it will start to automatically install the Libraries and code"${CLEAR}
-  echo -e ${BLUE}"needed for most masternodes and this script. As well as Update and Upgrade"${CLEAR}
-  echo -e ${BLUE}"existing software on your VPS. Additional dependencies May be installed later"${CLEAR}
-  echo
-  echo -e ${YELLOW}"Press [Y]es to agree or [N]o to disagree; follow by [ENTER Key]"${CLEAR}
-  read  -p "Enter choice : " NULLREC
-  case $NULLREC in
-    y) first_run ;;
-    Y) first_run ;;
-    n) exit 0 ;;
-    N) exit 0 ;;
-    *) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2 && function_check_first_run
-  esac
-fi
-}
-### End - First Run Configuration
 ### Start - Masternode function_Masternode_upgrade
 function_masternode_upgrade(){
     clear
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo "   How Many Masternode Do you want to Run?"
+    echo "   How Many Masternode Do you Want to Run?"
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo -e "1 - One Masternode"
     echo -e "2 - Masternode Two"
     echo -e "3 - Masternode Three"
     echo -e "4 - Masternode Four"
-    echo -e "5 - Masternode Five"
-    echo -e "6 - Masternode Six"
-    echo -e "7 - Masternode Seven"
-    echo -e "8 - Masternode Eight"
+    #echo -e "5 - Masternode Five"
+    #echo -e "6 - Masternode Six"
+    #echo -e "7 - Masternode Seven"
+    #echo -e "8 - Masternode Eight"
+    #echo -e "9 - Masternode Nine"
+    #echo -e "10 - Masternode Ten"
     echo -e "B - Back out of Menu"
     echo -e "X - Exit"
     function_read_masternode_upgrade
@@ -1100,21 +1183,24 @@ function_masternode_upgrade(){
     local choice
   	read -p "Enter choice " choice
     case $choice in
-      1)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_singleV4.sh)
+      1) build_first_node ;;
+      2) bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/HostingCoin_MN_Script/master/HostingCoin_2pack.sh)
       pause ;;
-      2)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_2pack.sh)
+      3) bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/HostingCoin_MN_Script/master/HostingCoin_3pack.sh)
       pause ;;
-      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_3pack.sh)
+      4) bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/HostingCoin_MN_Script/master/HostingCoin_4pack.sh)
       pause ;;
-      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_4pack.sh)
+      5) echo Will be released at a later time!
       pause ;;
-      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_5pack.sh)
+      6) echo Will be released at a later time!
       pause ;;
-      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_6pack.sh)
+      7) echo Will be released at a later time!
       pause ;;
-      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_7pack.sh)
+      8) echo Will be released at a later time!
       pause ;;
-      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Zealium_MN_Script/master/Zealium_8pack.sh)
+      9) echo Will be released at a later time!
+      pause ;;
+      10) echo Will be released at a later time!
       pause ;;
       b) echo -e "backing out" ;;
       B) echo -e "backing out" ;;
@@ -1137,27 +1223,144 @@ function_Donations(){
     echo
     echo -e "Donations can be made to multiple addresses for multiple projects"
     echo
-    echo -e "NZL address: ZCRNKEFqpTneutdMGvnhAMWTQQmzabBf6y"
-    echo -e "BTC address: 32FzghE1yUZRdDmCkj3bJ6vJyXxUVPKY93"
-    echo -e "BGX address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"
-    echo -e "ICA address: iAAVTcoF14zQgVbUcoVASoRGDxWy3kYzRz"
-    echo -e "LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"
-    echo -e "SCN address: sJYJC97GmeFeNffx7fgJiReZQe6WzY2b3i"
-    echo -e "XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"
+    echo -e ${BLUE}" Your patronage is apprappreciated, tipping addresses"${CLEAR}
+    echo -e ${BLUE}" HSTC address: HVCPPtB4YFMggXQiFmZPy7vmuL6RAUVQyC"${CLEAR}
+    echo -e ${BLUE}" BGX address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
+    echo -e ${BLUE}" BTC address: 32FzghE1yUZRdDmCkj3bJ6vJyXxUVPKY93"${CLEAR}
+    echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
+    echo -e ${BLUE}" XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"${CLEAR}
     echo
-    echo -e "Donations are used to fund VPS for testing, and server"
-    echo -e "cost for addnodes, and things yet implimented."
-    echo -e
+    echo -e ${YELLOW}"Need help?  Find Sburns1369#1584 one Discord - https://discord.gg/YhJ8v3g"${CLEAR}
     pause
-
+}
+function_build_IP(){
+if [[ customIP = "y" ]] ; then
+echo -e ${GREEN}"IP for Masternode 1"${CLEAR}
+read MNIP1
+echo -e ${GREEN}"IP for Masternode 2"${CLEAR}
+read MNIP2
+echo -e ${GREEN}"IP for Masternode 3"${CLEAR}
+read MNIP3
+echo -e ${GREEN}"IP for Masternode 4"${CLEAR}
+read MNIP4
+echo -e ${GREEN}"IP for Masternode 5"${CLEAR}
+read MNIP5
+echo -e ${GREEN}"IP for Masternode 6"${CLEAR}
+read MNIP6
+echo -e ${GREEN}"IP for Masternode 7"${CLEAR}
+read MNIP7
+echo -e ${GREEN}"IP for Masternode 8"${CLEAR}
+read MNIP8
+echo -e ${GREEN}"IP for Masternode 9"${CLEAR}
+read MNIP9
+echo -e ${GREEN}"IP for Masternode 10"${CLEAR}
+read MNIP10
+else
+regex='^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$'
+FINDIP=$(hostname -I | cut -f2 -d' '| cut -f1-7 -d:)
+if [[ $FINDIP =~ $regex ]]; then
+echo "IPv6 Address check is good"
+#echo ${FINDIP} testing note
+IP=${FINDIP}
+echo ${IP}
+else
+echo "IPv6 Address check is not expected, getting IPv6 Helper to recalculate"
+#echo $FINDIP - testing note 1
+sudo apt-get install sipcalc
+#echo $FINDIP - testing note 2
+FINDIP=$(hostname -I | cut -f3 -d' '| cut -f1-8 -d:)
+echo $FINDIP - check 3
+echo "Attempting to adjust results and re-calculate IPv6 Address"
+FINDIP=$(sipcalc ${FINDIP} | fgrep Expanded | cut -d ' ' -f3)
+if [[ $FINDIP =~ $regex ]]; then
+FINDIP=$(echo ${FINDIP} | cut -f1-7 -d:)
+echo "IPv6 Address check is good"
+IP=${FINDIP}
+else
+echo "IPv6 Addressing check has failed. Contact NullEntry Support"
+echo ${IP} testing note
+exit 1
+fi
+fi
+#echo ${MNIP1} testing note
+#echo ${IP} testing note
+echo -e ${YELLOW} "Building IP Tables"${CLEAR}
+sudo touch ${DPATH}ip.tbl
+echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}ip.tbl
+echo \#IPv4 and IPv6 are accepted.  Masternode needs to be rebuilt >> ${DPATH}ip.tbl
+echo \#unless IPs are entered in configuration directly.  >> ${DPATH}ip.tbl
+echo $(hostname -I | cut -f1 -d' ') >> ${DPATH}ip.tbl
+for i in {15362..15372}; do printf "${IP}:%.4x\n" $i >> ${DPATH}ip.tbl; done
+MNIP1=$(sed -n '4p' < ${DPATH}ip.tbl)
+MNIP2=$(sed -n '5p' < ${DPATH}ip.tbl)
+MNIP3=$(sed -n '6p' < ${DPATH}ip.tbl)
+MNIP4=$(sed -n '7p' < ${DPATH}ip.tbl)
+MNIP5=$(sed -n '8p' < ${DPATH}ip.tbl)
+MNIP6=$(sed -n '9p' < ${DPATH}ip.tbl)
+MNIP7=$(sed -n '10p' < ${DPATH}ip.tbl)
+MNIP8=$(sed -n '11p' < ${DPATH}ip.tbl)
+MNIP9=$(sed -n '12p' < ${DPATH}ip.tbl)
+MNIP10=$(sed -n '13p' < ${DPATH}ip.tbl)
+fi
+}
+build_first_node(){
+function_update
 }
 ### End - Masternode function_Masternode_upgrade
+function_user_add_check(){
+if id "${COINl}${nodeunit}" >/dev/null 2>&1; then
+echo "${COINl}${nodeunit}user exists"
+MN${nodeunit}=1
+else
+sudo adduser --system --home /home/${COINl}${nodeunit} ${COINl}${nodeunit}
+MN${nodeunit}=0
+fi
+}
+## Start Bootstrap
+function_bootstrap(){
+  cd ~
+  if [ ! -d /bootstrap ]; then
+  sudo mkdir /bootstrap/
+  fi
+cd /bootstrap/
+echo "Attempting to get Bootstrap, please wait"
+#pause
+wget ${NEBootStrap}
+sleep 1
+if [ ! -d ${COINl}1/.${COINl} ]; then
+  echo "Making /home/${COINl}1/.${COINl} "
+  sudo mkdir /home/${COINl}1/.${COINl}
+  else
+  echo "Found /home/${COINl}1/.${COINl} "
+fi
+sudo apt-get install unrar
+sleep 3
+unrar e bootstrap.rar /home/${COINl}1/.${COINl}
+cd ..
+#rm -rf /bootstrap/
+}
+# installation Core
+function_install(){
+function_swap_space
+function_update
+function_dependencies
+function_user_add_check
+download_coinfiles
+#function_bootstrap
+function_build_IP
+function_build_node_configuration
+launch_first_node
+wait_first_node_launch
+}
+#End installation Core
 #Program Core
 clear
 null_logo
-#BitCoinGenX_Logo
-Zealium_Logo
+Deviant_Logo
+BitCoinGenX_Logo
+#Bitcoingenx_Logo
 function_check_first_run
+function_first_nodecheck
 while true
 do
 	show_mainMenu
