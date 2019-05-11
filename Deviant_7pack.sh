@@ -1,7 +1,7 @@
 #!/bin/bash
 #0.99-- NullEntryDev Script
-NODESL=Eight
-NODESN=8
+NODESL=Seven
+NODESN=7
 BLUE='\033[0;96m'
 GREEN='\033[0;92m'
 RED='\033[0;91m'
@@ -332,12 +332,13 @@ sudo mkdir /root/dev
 fi
 cd /root/dev
 echo "Downloading latest Deviant binaries"
-wget https://github.com/Deviantcoin/Wallet/blob/master/deviant-4.0.0-x86_64-linux-gnu.tar.gz
-tar -xzf deviant-4.0.0-x86_64-linux-gnu.tar.gz
+wget https://github.com/Deviantcoin/Wallet/raw/master/deviant-4.0.0-x86_64-linux-gnu.tar.gz
+tar xvzf deviant-4.0.0-x86_64-linux-gnu.tar.gz
 sleep 3
-sudo mv /root/dev/deviantd /root/dev/deviant-cli /usr/local/bin
+sudo mv /root/dev/deviant-4.0.0/bin/deviantd /root/dev/deviant-4.0.0/bin/deviant-cli /usr/local/bin
 sudo chmod 755 -R /usr/local/bin/deviant*
 rm -rf /root/dev
+#
 if [ ! -f /home/deviant1/.deviant/deviant.conf ]; then
 echo -e "${GREEN}Configuring First Deviant Node${CLEAR}"
 sudo mkdir /home/deviant1/.deviant
@@ -665,8 +666,9 @@ echo -e "${BOLD} Masternode - \#6 IP: [${MNIP6}]:2219${CLEAR}"
 echo -e "${BOLD} Masternode - \#7 IP: [${MNIP7}]:2219${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
-echo -e ${BLUE}" Deviant address: iAAVTcoF14zQgVbUcoVASoRGDxWy3kYzRz"${CLEAR}
-echo -e ${BLUE}" XGS address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
+echo -e ${BLUE}" Deviant address: daNLUws48T1N7cL51dkoT7auWeBhkmApfq"${CLEAR}
+echo -e ${BLUE}" BGX address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
+echo -e ${BLUE}" XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"${CLEAR}
 echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
 echo
 echo -e ${YELLOW}"Need help? Find Sburns1369\#1584 on Discord - https://discord.gg/YhJ8v3g"${CLEAR}
