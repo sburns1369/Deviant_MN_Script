@@ -1163,7 +1163,6 @@ echo -e "         ."
   echo "addnode=$ADDNODE5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   else
   echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-}
   fi
   }
   ## End Make Node Configuration Files
