@@ -1163,43 +1163,7 @@ echo -e "         ."
   echo "addnode=$ADDNODE5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   else
   echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.69.71.209:52000" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.89.187.96:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.89.195.33:59502" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.114.3.12:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.179.97.66:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.86.91.21:50346" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.99.223.218:37118" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=173.212.242.63:36400" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=176.9.60.206:45804" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=178.128.126.159:57392" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=18.222.21.84:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=188.40.174.97:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=195.201.108.252:48132" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=206.189.151.70:45254" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.154.197.200:44978" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.180.224.165:45556" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.180.232.7:53756" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.246.81.1:64706" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=209.97.164.11:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=34.220.44.234:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.32.19.53:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.77.15.207:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.79.6.12:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.15.101.128:40566" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.15.198.105:42714" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.158.78.150:41166" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=66.42.90.8:34914" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=68.183.131.54:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=68.183.200.153:40504" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=72.219.164.254:61879" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=77.222.98.161:62457" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=85.214.75.2:53402" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=85.88.29.173:50206" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=94.177.243.112:35488" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=95.216.43.72:45132" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=95.216.74.153:58244" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+}
   fi
   }
   ## End Make Node Configuration Files
@@ -1298,19 +1262,19 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
     read -p "Enter choice " choice
     case $choice in
       1) build_first_node ;;
-      2)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_2pack.sh)
+      2)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_3pack.sh)
+      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_4pack.sh)
+      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_5pack.sh)
+      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_6pack.sh)
+      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_7pack.sh)
+      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/ProxyNode_MN_Script/master/proxynode_8pack.sh)
+      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
       b) echo -e "backing out" ;;
       B) echo -e "backing out" ;;
