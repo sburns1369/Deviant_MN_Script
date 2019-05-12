@@ -1263,17 +1263,17 @@ echo -e "         ."
       1) build_first_node ;;
       2)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
       pause ;;
-      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_3pack.sh)
       pause ;;
-      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_4pack.sh)
       pause ;;
-      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_5pack.sh)
       pause ;;
-      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_6pack.sh)
       pause ;;
-      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_7pack.sh)
       pause ;;
-      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_2pack.sh)
+      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Deviant_MN_Script/master/Deviant_8pack.sh)
       pause ;;
       b) echo -e "backing out" ;;
       B) echo -e "backing out" ;;
