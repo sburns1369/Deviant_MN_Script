@@ -22,7 +22,7 @@ echo
 echo
 echo
 echo -e ${BLUE}"May this script will store a small amount data in /usr/local/nullentrydev/ ?"${CLEAR}
-echo -e ${BLUE}"This information is for version updates and later implimentation"${CLEAR}
+echo -e ${BLUE}"This information is for version updates and later implementation"${CLEAR}
 echo -e ${BLUE}"Zero Confidental information or Wallet keys will be stored in it"${CLEAR}
 echo -e ${YELLOW}"Press y to agree followed by [ENTER], or just [ENTER] to disagree"${CLEAR}
 read NULLREC

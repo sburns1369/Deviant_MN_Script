@@ -244,10 +244,10 @@ echo -e "         ."
   echo
   echo -e ${BLUE}"May this script will store a small amount data in /usr/local/nullentrydev/ ?"${CLEAR}
   echo -e ${BLUE}"This information is for version updates, masternode installation, file repair"${CLEAR}
-  echo -e ${BLUE}"and later implimentation. Zero information is transmitted off the VPS or collected"${CLEAR}
+  echo -e ${BLUE}"and later implementation. Zero information is transmitted off the VPS or collected"${CLEAR}
   echo -e ${BLUE}"for any advertising or information harvesting."${CLEAR}
   echo
-  echo -e ${BLUE}"Upon agrement it will start to automatically install the Libraries and code"${CLEAR}
+  echo -e ${BLUE}"Upon agreement it will start to automatically install the Libraries and code"${CLEAR}
   echo -e ${BLUE}"needed for most masternodes and this script. As well as Update and Upgrade"${CLEAR}
   echo -e ${BLUE}"existing software on your VPS. Additional dependencies May be installed later"${CLEAR}
   echo
