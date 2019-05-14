@@ -267,7 +267,7 @@ echo "maxconnections=250" >> /home/deviant1/.deviant/deviant.conf
 echo "masternode=1" >> /home/deviant1/.deviant/deviant.conf
 echo "rpcport=29021" >> /home/deviant1/.deviant/deviant.conf
 echo "listen=0" >> /home/deviant1/.deviant/deviant.conf
-echo "externalip=${MNIP1}:2219" >> /home/deviant1/.deviant/deviant.conf
+echo "externalip=${MNIP1}:22618" >> /home/deviant1/.deviant/deviant.conf
 echo "masternodeprivkey=$MNKEY" >> /home/deviant1/.deviant/deviant.conf
 echo "addnode=0" >> /home/deviant1/.deviant/deviant.conf
 MN1=0
@@ -305,7 +305,7 @@ echo "maxconnections=250" >> /home/deviant2/deviant.conf
 echo "masternode=1" >> /home/deviant2/deviant.conf
 echo "rpcport=29022" >> /home/deviant2/deviant.conf
 echo "listen=0" >> /home/deviant2/deviant.conf
-echo "externalip=[${MNIP2}]:2219" >> /home/deviant2/deviant.conf
+echo "externalip=[${MNIP2}]:22618" >> /home/deviant2/deviant.conf
 echo "masternodeprivkey=$MNKEY2" >> /home/deviant2/deviant.conf
 echo "addnode=[${MNIP1}]" >> /home/deviant1/.deviant/deviant.conf
 if [[ $NULLREC = "y" ]] ; then
@@ -359,8 +359,8 @@ echo -e "${YELLOW}For mn2: \"deviant-cli -datadir=/home/deviant2/.deviant master
 echo
 echo -e "${RED}Status 29 may take a few minutes to clear while the daemon processes the chainstate"${CLEAR}
 echo -e "${GREEN}The data below needs to be in your local masternode configuration file:${CLEAR}"
-echo -e "${BOLD} Masternode - \#1 IP: ${MNIP1}:2219${CLEAR}"
-echo -e "${BOLD} Masternode - \#2 IP: [${MNIP2}]:2219${CLEAR}"
+echo -e "${BOLD} Masternode - \#1 IP: ${MNIP1}:22618${CLEAR}"
+echo -e "${BOLD} Masternode - \#2 IP: [${MNIP2}]:22618${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
 echo -e ${BLUE}" Deviant address: daNLUws48T1N7cL51dkoT7auWeBhkmApfq"${CLEAR}

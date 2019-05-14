@@ -188,7 +188,7 @@ echo -e "      |  A  |"
 sleep 4
 echo -e "      |  N  |"
 sleep 4
-echo -e "      |     |"
+echo -e "      |  T  |"
 sleep 4
 echo -e "      |     |"
 sleep 4

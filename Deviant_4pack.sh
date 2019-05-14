@@ -301,7 +301,7 @@ echo "maxconnections=250" >> /home/deviant1/.deviant/deviant.conf
 echo "masternode=1" >> /home/deviant1/.deviant/deviant.conf
 echo "rpcport=29021" >> /home/deviant1/.deviant/deviant.conf
 echo "listen=0" >> /home/deviant1/.deviant/deviant.conf
-echo "externalip=${MNIP1}:2219" >> /home/deviant1/.deviant/deviant.conf
+echo "externalip=${MNIP1}:22618" >> /home/deviant1/.deviant/deviant.conf
 echo "masternodeprivkey=$MNKEY" >> /home/deviant1/.deviant/deviant.conf
 echo "addnode=0" >> /home/deviant1/.deviant/deviant.conf
 MN1=0
@@ -339,7 +339,7 @@ echo "maxconnections=250" >> /home/deviant2/deviant.conf
 echo "masternode=1" >> /home/deviant2/deviant.conf
 echo "rpcport=29022" >> /home/deviant2/deviant.conf
 echo "listen=0" >> /home/deviant2/deviant.conf
-echo "externalip=[${MNIP2}]:2219" >> /home/deviant2/deviant.conf
+echo "externalip=[${MNIP2}]:22618" >> /home/deviant2/deviant.conf
 echo "masternodeprivkey=$MNKEY2" >> /home/deviant2/deviant.conf
 echo "addnode=[${MNIP1}]" >> /home/deviant1/.deviant/deviant.conf
 if [[ $NULLREC = "y" ]] ; then
@@ -373,7 +373,7 @@ echo "maxconnections=250" >> /home/deviant3/deviant.conf
 echo "masternode=1" >> /home/deviant3/deviant.conf
 echo "rpcport=29024" >> /home/deviant3/deviant.conf
 echo "listen=0" >> /home/deviant3/deviant.conf
-echo "externalip=[${MNIP3}]:2219" >> /home/deviant3/deviant.conf
+echo "externalip=[${MNIP3}]:22618" >> /home/deviant3/deviant.conf
 echo "masternodeprivkey=$MNKEY3" >> /home/deviant3/deviant.conf
 if [[ $NULLREC = "y" ]] ; then
 echo "masterNode3 : true" >> /usr/local/nullentrydev/dev.log
@@ -406,7 +406,7 @@ echo "maxconnections=250" >> /home/deviant4/deviant.conf
 echo "masternode=1" >> /home/deviant4/deviant.conf
 echo "rpcport=29025" >> /home/deviant4/deviant.conf
 echo "listen=0" >> /home/deviant4/deviant.conf
-echo "externalip=[${MNIP4}]:2219" >> /home/deviant4/deviant.conf
+echo "externalip=[${MNIP4}]:22618" >> /home/deviant4/deviant.conf
 echo "masternodeprivkey=$MNKEY4" >> /home/deviant4/deviant.conf
 if [[ $NULLREC = "y" ]] ; then
 echo "masterNode4 : true" >> /usr/local/nullentrydev/dev.log
@@ -478,10 +478,10 @@ echo -e "${YELLOW}For mn4: \"deviant-cli -datadir=/home/deviant4/.deviant master
 echo
 echo -e "${RED}Status 29 may take a few minutes to clear while the daemon processes the chainstate"${CLEAR}
 echo -e "${GREEN}The data below needs to be in your local masternode configuration file:${CLEAR}"
-echo -e "${BOLD} Masternode - \#1 IP: ${MNIP1}:2219${CLEAR}"
-echo -e "${BOLD} Masternode - \#2 IP: [${MNIP2}]:2219${CLEAR}"
-echo -e "${BOLD} Masternode - \#3 IP: [${MNIP3}]:2219${CLEAR}"
-echo -e "${BOLD} Masternode - \#4 IP: [${MNIP4}]:2219${CLEAR}"
+echo -e "${BOLD} Masternode - \#1 IP: ${MNIP1}:22618${CLEAR}"
+echo -e "${BOLD} Masternode - \#2 IP: [${MNIP2}]:22618${CLEAR}"
+echo -e "${BOLD} Masternode - \#3 IP: [${MNIP3}]:22618${CLEAR}"
+echo -e "${BOLD} Masternode - \#4 IP: [${MNIP4}]:22618${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
 echo -e ${BLUE}" Deviant address: daNLUws48T1N7cL51dkoT7auWeBhkmApfq"${CLEAR}
